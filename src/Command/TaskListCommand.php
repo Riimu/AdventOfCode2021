@@ -12,7 +12,7 @@ class TaskListCommand extends Command
     protected static $defaultName = 'task:list';
     protected static $defaultDescription = 'Lists all available tasks to run';
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $tasks = array_keys(TaskList::TASK_LIST);
 

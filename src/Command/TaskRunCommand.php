@@ -2,7 +2,6 @@
 
 namespace Riimu\AdventOfCode2021\Command;
 
-use http\Exception\RuntimeException;
 use Riimu\AdventOfCode2021\TaskInterface;
 use Riimu\AdventOfCode2021\TaskList;
 use Symfony\Component\Console\Command\Command;
@@ -22,7 +21,7 @@ class TaskRunCommand extends Command
         parent::configure();
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $taskName = $this->getTaskName($input);
 

@@ -18,7 +18,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "Riimu\\AdventOfCode2021\\": "tests/AdventOfCode2021"
+      "Riimu\\AdventOfCode2021\\": "tests/AdventOfCode2021/"
     }
   },
   "scripts": {
