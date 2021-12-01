@@ -2,17 +2,16 @@
 
 namespace Riimu\AdventOfCode2021\Day1;
 
-use Riimu\AdventOfCode2021\TaskInterface;
+use Riimu\AdventOfCode2021\AbstractTask;
 
-class Day1PartTwo implements TaskInterface
+class Day1PartTwo extends AbstractTask
 {
     public function run(): string
     {
-        $lines = preg_split('/\R/', file_get_contents(__DIR__ . '/input.txt'));
         $total = 0;
         $windows = [];
 
-        foreach ($lines as $number => $line) {
+        foreach ($this->getInputLines('day-1.txt') as $number => $line) {
             $depth = (int)$line;
 
             for ($i = 0; $i < 3; $i++) {
