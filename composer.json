@@ -19,7 +19,8 @@
     }
   },
   "scripts": {
-    "test": "vendor/bin/phpunit",
-    "phpcs": "vendor/bin/phpcs --standard=PSR12 -p src/ tests/"
+    "test": "phpunit",
+    "phpcs": "phpcs --standard=PSR12 -p src/ tests/",
+    "php-cs-fixer": "php-cs-fixer fix -v"
   }
 }
