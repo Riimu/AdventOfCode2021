@@ -2,6 +2,7 @@
 
 namespace Riimu\AdventOfCode2021\Command;
 
+use http\Exception\RuntimeException;
 use Riimu\AdventOfCode2021\TaskInterface;
 use Riimu\AdventOfCode2021\TaskList;
 use Symfony\Component\Console\Command\Command;
@@ -15,7 +16,7 @@ class TaskRunCommand extends Command
     protected static $defaultName = 'task:run';
     protected static $defaultDescription = 'Runs the provided task';
 
-    protected function configure()
+    protected function configure(): void
     {
         $this->addArgument('task', InputArgument::REQUIRED, 'The task to run');
         parent::configure();
@@ -23,7 +24,7 @@ class TaskRunCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $taskName = $input->getArgument('task');
+        $taskName = $this->getTaskName($input);
 
         if (!isset(TaskList::TASK_LIST[$taskName])) {
             $this->error($output, "No task named '$taskName'");
@@ -46,6 +47,17 @@ class TaskRunCommand extends Command
         }
 
         $output->writeln($text);
+    }
+
+    private function getTaskName(InputInterface $input): string
+    {
+        $name = $input->getArgument('task');
+
+        if (!\is_string($name)) {
+            throw new \UnexpectedValueException('Unexpected value for task name: ' . get_debug_type($name));
+        }
+
+        return $name;
     }
 
     private function instantiate(string $name): TaskInterface
