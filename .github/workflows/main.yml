@@ -1,0 +1,62 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+  workflow_dispatch:
+
+jobs:
+  PHPUnit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Environment
+        uses: ./.github/actions/setup-env
+      - name: Run PHPUnit
+        run: composer test
+  PHPStan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Environment
+        uses: ./.github/actions/setup-env
+      - name: Run PHPStan
+        run: composer phpstan
+  Psalm:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Environment
+        uses: ./.github/actions/setup-env
+      - name: Run Psalm
+        run: composer psalm
+  PHP_CodeSniffer:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Environment
+        uses: ./.github/actions/setup-env
+      - name: Run PHP_CodeSniffer
+        run: composer phpcs
+  PHP-CS-Fixer:
+    runs-on: ubuntu-latest
+    env:
+      PHP_CS_FIXER_IGNORE_ENV: '1'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          coverage: none
+          tools: php-cs-fixer
+      - name: Setup Dependencies
+        uses: ./.github/action/setup-composer
+      - name: Run PHP Coding Standards Fixer
+        run: composer php-cs-fixer
+  composer-normalize:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Environment
+        uses: ./.github/action/setup-env
+      - name: Run composer-normalize
+        run: composer normalize --dry-run
