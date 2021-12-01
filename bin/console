@@ -5,6 +5,8 @@ use Riimu\AdventOfCode2021\Command\TaskListCommand;
 use Riimu\AdventOfCode2021\Command\TaskRunCommand;
 use Symfony\Component\Console\Application;
 
+set_error_handler(static fn ($code, $error, $file, $line) => throw new ErrorException($error, 0, $code, $file, $line));
+
 require __DIR__ . '/../vendor/autoload.php';
 
 (function () {

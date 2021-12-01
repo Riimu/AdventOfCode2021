@@ -3,7 +3,6 @@
 namespace Riimu\AdventOfCode2021;
 
 use PHPUnit\Framework\TestCase;
-use Riimu\AdventOfCode2021\Day1\Day1FirstStar;
 
 class ResultTest extends TestCase
 {
@@ -24,7 +23,8 @@ class ResultTest extends TestCase
     public function getTaskResults(): array
     {
         return [
-            [Day1FirstStar::class, 'foobar'],
+            [Day1\Day1PartOne::class, '1446'],
+            [Day1\Day1PartTwo::class, '1486'],
         ];
     }
 }
