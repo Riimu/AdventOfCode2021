@@ -1,0 +1,15 @@
+#!/usr/bin/env php
+<?php
+
+use Riimu\AdventOfCode2021\Command\TaskListCommand;
+use Riimu\AdventOfCode2021\Command\TaskRunCommand;
+use Symfony\Component\Console\Application;
+
+require __DIR__ . '/../vendor/autoload.php';
+
+(function () {
+    $application = new Application();
+    $application->addCommands([new TaskRunCommand()]);
+    $application->addCommands([new TaskListCommand()]);
+    $application->run();
+})();

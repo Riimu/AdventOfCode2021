@@ -1,0 +1,20 @@
+{
+  "require": {
+    "symfony/console": "^6.0.0"
+  },
+  "require-dev": {
+    "ergebnis/composer-normalize": "^2.16.0",
+    "roave/security-advisories": "dev-latest",
+    "phpunit/phpunit": "9.5.10"
+  },
+  "autoload": {
+    "psr-4": {
+      "Riimu\\AdventOfCode2021\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Riimu\\AdventOfCode2021\\": "tests/AdventOfCode2021"
+    }
+  }
+}
