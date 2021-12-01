@@ -6,6 +6,8 @@ use Riimu\AdventOfCode2021\AbstractTask;
 
 class Day1PartOne extends AbstractTask
 {
+    protected static string $taskName = 'Day 1: Sonar Sweep';
+
     public function run(): string
     {
         $total = 0;

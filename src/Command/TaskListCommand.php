@@ -14,12 +14,15 @@ class TaskListCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $tasks = array_keys(TaskList::TASK_LIST);
+        $tasks = TaskList::TASK_LIST;
 
-        natcasesort($tasks);
+        uksort($tasks, fn (string $a, string $b): int => strnatcasecmp($a, $b));
 
-        foreach ($tasks as $name) {
-            $output->writeln($name);
+        $output->writeln('List of implemented tasks:');
+        $output->writeln('');
+
+        foreach ($tasks as $code => $class) {
+            $output->writeln(sprintf(' %5s - %s', $code, $class::getName()));
         }
 
         return Command::SUCCESS;

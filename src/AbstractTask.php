@@ -4,6 +4,13 @@ namespace Riimu\AdventOfCode2021;
 
 abstract class AbstractTask implements TaskInterface
 {
+    protected static string $taskName;
+
+    public static function getName(): string
+    {
+        return static::$taskName;
+    }
+
     /**
      * @return array<int, string>
      */

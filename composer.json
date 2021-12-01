@@ -26,6 +26,13 @@
     "phpcs": "phpcs --standard=PSR12 -p src/ tests/",
     "phpstan": "phpstan analyse --level=9 src tests bin/console",
     "psalm": "psalm",
-    "test": "phpunit"
+    "test": "phpunit",
+    "ci-all": [
+      "@test",
+      "@phpcs",
+      "@php-cs-fixer",
+      "@phpstan",
+      "@psalm"
+    ]
   }
 }
