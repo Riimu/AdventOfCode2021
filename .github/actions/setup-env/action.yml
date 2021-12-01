@@ -11,4 +11,4 @@ runs:
         php-version: '8.1'
         coverage: none
     - name: Setup Dependencies
-      uses: ./.github/action/setup-composer
+      uses: ./.github/actions/setup-composer

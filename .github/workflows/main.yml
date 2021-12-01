@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [master]
+    branches: [main]
   pull_request:
-    branches: [master]
+    branches: [main]
   workflow_dispatch:
 
 jobs:
@@ -50,13 +50,13 @@ jobs:
           coverage: none
           tools: php-cs-fixer
       - name: Setup Dependencies
-        uses: ./.github/action/setup-composer
+        uses: ./.github/actions/setup-composer
       - name: Run PHP Coding Standards Fixer
         run: composer php-cs-fixer
   composer-normalize:
     runs-on: ubuntu-latest
     steps:
       - name: Setup Environment
-        uses: ./.github/action/setup-env
+        uses: ./.github/actions/setup-env
       - name: Run composer-normalize
         run: composer normalize --dry-run
