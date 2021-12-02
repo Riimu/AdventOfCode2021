@@ -42,7 +42,7 @@ jobs:
       - name: Setup Dependencies
         uses: ./.github/actions/setup-composer
       - name: Run PHP Coding Standards Fixer
-        run: composer php-cs-fixer -- --dry-run --diff --using-cache=no",
+        run: composer php-cs-fixer -- --dry-run --diff --using-cache=no
   PHPStan:
     runs-on: ubuntu-latest
     steps:
