@@ -17,7 +17,7 @@ class Day2PartTwo extends AbstractTask
         foreach ($this->getInputLines('day-2.txt') as $line) {
             [$command, $value] = explode(' ', $line);
 
-            $value = (int)$value;
+            $value = $this->parseInt($value);
 
             switch ($command) {
                 case 'forward':

@@ -14,7 +14,7 @@ class Day1PartTwo extends AbstractTask
         $windows = [];
 
         foreach ($this->getInputLines('day-1.txt') as $number => $line) {
-            $depth = (int)$line;
+            $depth = $this->parseInt($line);
 
             for ($i = 0; $i < 3; $i++) {
                 if (!isset($windows[$number + $i])) {
