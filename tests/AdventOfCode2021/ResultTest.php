@@ -4,9 +4,12 @@ namespace Riimu\AdventOfCode2021;
 
 use PHPUnit\Framework\TestCase;
 
+/** @psalm-suppress PropertyNotSetInConstructor */
 class ResultTest extends TestCase
 {
     /**
+     * @param class-string<TaskInterface> $taskClass
+     * @param string $expectedResult
      * @dataProvider getTaskResults
      */
     public function testTaskResults(string $taskClass, string $expectedResult): void

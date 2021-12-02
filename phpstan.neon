@@ -1,2 +1,9 @@
+parameters:
+    level: 9
+    paths:
+        - bin/console
+        - src/
+        - tests/
+
 includes:
     - vendor/phpstan/phpstan-phpunit/extension.neon
