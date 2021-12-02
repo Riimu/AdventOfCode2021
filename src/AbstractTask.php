@@ -40,6 +40,6 @@ abstract class AbstractTask implements TaskInterface
             throw new \RuntimeException("Error reading input file '$fullPath'");
         }
 
-        return $input;
+        return trim($input);
     }
 }

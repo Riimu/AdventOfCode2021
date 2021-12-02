@@ -24,7 +24,7 @@ class Day1PartTwo extends AbstractTask
                 $windows[$number + $i] += $depth;
             }
 
-            if ($number > 3 && $windows[$number - 2] > $windows[$number - 3]) {
+            if ($number > 2 && $windows[$number - 2] > $windows[$number - 3]) {
                 $total++;
             }
         }
