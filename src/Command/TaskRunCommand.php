@@ -2,7 +2,6 @@
 
 namespace Riimu\AdventOfCode2021\Command;
 
-use Riimu\AdventOfCode2021\TaskInterface;
 use Riimu\AdventOfCode2021\TaskList;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -30,7 +29,9 @@ class TaskRunCommand extends Command
             return Command::FAILURE;
         }
 
-        $task = $this->instantiate($taskName);
+        $class = TaskList::TASK_LIST[$taskName];
+        $task = new $class();
+        $output->writeln('Running task: ' . $task::getName());
         $result = $task->run();
 
         $output->writeln($result);
@@ -57,16 +58,5 @@ class TaskRunCommand extends Command
         }
 
         return $name;
-    }
-
-    private function instantiate(string $name): TaskInterface
-    {
-        $class = TaskList::TASK_LIST[$name];
-
-        if (!class_exists($class) || !is_a($class, TaskInterface::class, true)) {
-            throw new \RuntimeException("Invalid task class: $class");
-        }
-
-        return new $class();
     }
 }
