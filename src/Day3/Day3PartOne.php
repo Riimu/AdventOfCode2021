@@ -23,7 +23,7 @@ class Day3PartOne extends AbstractTask
 
         $gamma = '';
         $epsilon = '';
-        $majority = count($lines) / 2;
+        $majority = \count($lines) / 2;
 
         foreach ($ones as $count) {
             $gamma .= $count >= $majority ? '1' : '0';

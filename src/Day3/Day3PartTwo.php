@@ -14,17 +14,17 @@ class Day3PartTwo extends AbstractTask
 
         $oxygen = $lines;
 
-        for ($i = 0; count($oxygen) > 1; $i++) {
+        for ($i = 0; \count($oxygen) > 1; $i++) {
             $ones = $this->getOneCounts($oxygen);
-            $filter = $ones[$i] >= count($oxygen) / 2 ? '1' : '0';
+            $filter = $ones[$i] >= \count($oxygen) / 2 ? '1' : '0';
             $oxygen = array_filter($oxygen, fn ($value) => $value[$i] === $filter);
         }
 
         $carbondioxide = $lines;
 
-        for ($i = 0; count($carbondioxide) > 1; $i++) {
+        for ($i = 0; \count($carbondioxide) > 1; $i++) {
             $ones = $this->getOneCounts($carbondioxide);
-            $filter = $ones[$i] >= count($carbondioxide) / 2 ? '0' : '1';
+            $filter = $ones[$i] >= \count($carbondioxide) / 2 ? '0' : '1';
             $carbondioxide = array_filter($carbondioxide, fn ($value) => $value[$i] === $filter);
         }
 

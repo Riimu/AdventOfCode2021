@@ -1,5 +1,6 @@
 {
   "require": {
+    "php": ">=8.1.0",
     "symfony/console": "^6.0.0"
   },
   "require-dev": {
@@ -25,6 +26,7 @@
     "ci-all": [
       "composer test -- --do-not-cache-result",
       "composer phpcs -- --no-cache",
+      "@putenv PHP_CS_FIXER_IGNORE_ENV=1",
       "composer php-cs-fixer -- --dry-run --diff --using-cache=no",
       "composer phpstan-clear",
       "composer phpstan",
