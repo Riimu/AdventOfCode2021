@@ -5,10 +5,16 @@ namespace Riimu\AdventOfCode2021;
 abstract class AbstractTask implements TaskInterface
 {
     protected static string $taskName;
+    private ?string $inputFile;
 
     public static function getName(): string
     {
         return static::$taskName;
+    }
+
+    public function setInput(string $filename): void
+    {
+        $this->inputFile = $filename;
     }
 
     protected function parseInt(string $string): int
@@ -37,8 +43,9 @@ abstract class AbstractTask implements TaskInterface
         return $lines;
     }
 
-    protected function getInput(string $filename): string
+    protected function getInput(string $defaultFilename): string
     {
+        $filename = $this->inputFile ?? $defaultFilename;
         $fullPath = __DIR__ . '/../inputs/' . $filename;
 
         if (!file_exists($fullPath)) {
