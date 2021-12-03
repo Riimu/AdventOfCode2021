@@ -59,15 +59,18 @@ abstract class AbstractTask implements TaskInterface
     {
         $filename = $this->inputFile ?? $defaultFilename;
         $fullPath = __DIR__ . '/../inputs/' . $filename;
+        $realPath = false;
 
         if (file_exists($fullPath)) {
-            return realpath($fullPath);
+            $realPath = realpath($fullPath);
+        } elseif (file_exists($filename)) {
+            $realPath =realpath($filename);
         }
 
-        if (file_exists($filename)) {
-            return realpath($filename);
+        if ($realPath === false) {
+            throw new \RuntimeException("Could find or access input file '$filename'");
         }
 
-        throw new \RuntimeException("No input file '$filename' exists");
+        return $realPath;
     }
 }

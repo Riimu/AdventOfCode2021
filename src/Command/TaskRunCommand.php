@@ -36,7 +36,7 @@ class TaskRunCommand extends Command
         $output->writeln('Running task: ' . $task::getName());
         $inputFile = $input->getArgument('input');
 
-        if ($inputFile) {
+        if (is_string($inputFile) && $inputFile !== '') {
             $task->setInput($inputFile);
         }
 
