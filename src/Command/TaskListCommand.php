@@ -14,7 +14,8 @@ class TaskListCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $tasks = TaskList::TASK_LIST;
+        $taskList = new TaskList();
+        $tasks = $taskList->getTasks();
 
         uksort($tasks, fn (string $a, string $b): int => strnatcasecmp($a, $b));
 

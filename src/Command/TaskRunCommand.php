@@ -17,21 +17,29 @@ class TaskRunCommand extends Command
     protected function configure(): void
     {
         $this->addArgument('task', InputArgument::REQUIRED, 'The task to run');
+        $this->addArgument('input', InputArgument::OPTIONAL, 'Input file to use');
         parent::configure();
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        $taskList = new TaskList();
         $taskName = $this->getTaskName($input);
 
-        if (!isset(TaskList::TASK_LIST[$taskName])) {
+        if (!$taskList->hasTask($taskName)) {
             $this->error($output, "No task named '$taskName'");
             return Command::FAILURE;
         }
 
-        $class = TaskList::TASK_LIST[$taskName];
-        $task = new $class();
+        $task = $taskList->getTask($taskName);
+
         $output->writeln('Running task: ' . $task::getName());
+        $inputFile = $input->getArgument('input');
+
+        if ($inputFile) {
+            $task->setInput($inputFile);
+        }
+
         $result = $task->run();
 
         $output->writeln($result);

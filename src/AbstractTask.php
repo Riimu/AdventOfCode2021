@@ -45,19 +45,29 @@ abstract class AbstractTask implements TaskInterface
 
     protected function getInput(string $defaultFilename): string
     {
-        $filename = $this->inputFile ?? $defaultFilename;
-        $fullPath = __DIR__ . '/../inputs/' . $filename;
-
-        if (!file_exists($fullPath)) {
-            throw new \RuntimeException("No input file '$fullPath' exists");
-        }
-
-        $input = file_get_contents(__DIR__ . '/../inputs/' . $filename);
+        $fullPath = $this->getInputFile($defaultFilename);
+        $input = file_get_contents($fullPath);
 
         if (!\is_string($input)) {
             throw new \RuntimeException("Error reading input file '$fullPath'");
         }
 
         return trim($input);
+    }
+
+    private function getInputFile(string $defaultFilename): string
+    {
+        $filename = $this->inputFile ?? $defaultFilename;
+        $fullPath = __DIR__ . '/../inputs/' . $filename;
+
+        if (file_exists($fullPath)) {
+            return realpath($fullPath);
+        }
+
+        if (file_exists($filename)) {
+            return realpath($filename);
+        }
+
+        throw new \RuntimeException("No input file '$filename' exists");
     }
 }
