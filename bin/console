@@ -1,6 +1,8 @@
 #!/usr/bin/env php
 <?php
 
+declare(strict_types=1);
+
 use Riimu\AdventOfCode2021\Command\TaskListCommand;
 use Riimu\AdventOfCode2021\Command\TaskRunCommand;
 use Symfony\Component\Console\Application;

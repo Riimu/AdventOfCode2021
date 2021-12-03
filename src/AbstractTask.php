@@ -1,6 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Riimu\AdventOfCode2021;
+
+use Riimu\AdventOfCode2021\Typed\Files;
+use Riimu\AdventOfCode2021\Typed\Regex;
+use Symfony\Component\Filesystem\Path;
 
 abstract class AbstractTask implements TaskInterface
 {
@@ -33,44 +39,29 @@ abstract class AbstractTask implements TaskInterface
      */
     protected function getInputLines(string $filename): array
     {
-        $input = $this->getInput($filename);
-        $lines = preg_split('/\R/', $input);
-
-        if (!\is_array($lines)) {
-            throw new \RuntimeException('Error parsing input file');
-        }
-
-        return $lines;
+        return Regex::split('/\R/', $this->getInput($filename));
     }
 
     protected function getInput(string $defaultFilename): string
     {
-        $fullPath = $this->getInputFile($defaultFilename);
-        $input = file_get_contents($fullPath);
-
-        if (!\is_string($input)) {
-            throw new \RuntimeException("Error reading input file '$fullPath'");
-        }
-
-        return trim($input);
+        return trim(Files::getContents($this->getInputFile($defaultFilename)));
     }
 
     private function getInputFile(string $defaultFilename): string
     {
         $filename = $this->inputFile ?? $defaultFilename;
-        $fullPath = __DIR__ . '/../inputs/' . $filename;
-        $realPath = false;
+        $inputPath = Path::canonicalize(__DIR__ . '/../inputs/' . basename($filename));
 
-        if (file_exists($fullPath)) {
-            $realPath = realpath($fullPath);
-        } elseif (file_exists($filename)) {
-            $realPath = realpath($filename);
+        if (is_file($inputPath)) {
+            return $inputPath;
         }
 
-        if ($realPath === false) {
-            throw new \RuntimeException("Could find or access input file '$filename'");
+        $currentPath = Path::makeAbsolute($filename, Files::getCurrentWorkingDirectory());
+
+        if (is_file($currentPath)) {
+            return $currentPath;
         }
 
-        return $realPath;
+        throw new \RuntimeException("Could find or access input file '$filename'");
     }
 }

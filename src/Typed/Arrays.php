@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Riimu\AdventOfCode2021\Typed;
 
 class Arrays
@@ -13,7 +15,7 @@ class Arrays
     {
         $key = array_key_first($array);
 
-        if ($key === null) {
+        if (!\is_string($key) && !\is_int($key)) {
             throw new \InvalidArgumentException('Cannot return first element of empty array');
         }
 

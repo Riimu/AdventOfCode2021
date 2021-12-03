@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Riimu\AdventOfCode2021;
 
 use PHPUnit\Framework\TestCase;

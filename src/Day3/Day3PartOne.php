@@ -1,6 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Riimu\AdventOfCode2021\Day3;
+
+use Riimu\AdventOfCode2021\Typed\Arrays;
 
 class Day3PartOne extends AbstractDay3Class
 {
@@ -9,14 +13,7 @@ class Day3PartOne extends AbstractDay3Class
     public function run(): string
     {
         $lines = $this->getInputLines('day-3.txt');
-
-        $first = reset($lines);
-
-        if (!\is_string($first)) {
-            throw new \RuntimeException('No input lines provided');
-        }
-
-        $length = \strlen($first);
+        $length = \strlen(Arrays::first($lines));
         $gamma = '';
         $epsilon = '';
         $majority = \count($lines) / 2;
