@@ -32,8 +32,8 @@
       "composer normalize --dry-run"
     ],
     "php-cs-fixer": "php-cs-fixer fix -v",
-    "phpcs": "phpcs --standard=PSR12 -p src/ tests/",
-    "phpstan": "phpstan analyse --level=9 src/ tests/ bin/console",
+    "phpcs": "phpcs -p",
+    "phpstan": "phpstan analyse",
     "phpstan-clear": "phpstan clear-result-cache",
     "psalm": "psalm",
     "test": "phpunit"

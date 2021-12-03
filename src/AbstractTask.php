@@ -11,6 +11,17 @@ abstract class AbstractTask implements TaskInterface
         return static::$taskName;
     }
 
+    protected function parseInt(string $string): int
+    {
+        $value = (int)$string;
+
+        if ($string !== (string)$value) {
+            throw new \RuntimeException("Unexpected integer value '$string'");
+        }
+
+        return $value;
+    }
+
     /**
      * @return array<int, string>
      */
@@ -40,6 +51,6 @@ abstract class AbstractTask implements TaskInterface
             throw new \RuntimeException("Error reading input file '$fullPath'");
         }
 
-        return $input;
+        return trim($input);
     }
 }

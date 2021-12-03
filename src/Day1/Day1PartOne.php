@@ -14,7 +14,7 @@ class Day1PartOne extends AbstractTask
         $previous = null;
 
         foreach ($this->getInputLines('day-1.txt') as $line) {
-            $depth = (int)$line;
+            $depth = $this->parseInt($line);
 
             if ($previous !== null && $depth > $previous) {
                 $total++;
