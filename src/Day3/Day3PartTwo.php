@@ -1,6 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Riimu\AdventOfCode2021\Day3;
+
+use Riimu\AdventOfCode2021\Typed\Arrays;
 
 class Day3PartTwo extends AbstractDay3Class
 {
@@ -18,14 +22,14 @@ class Day3PartTwo extends AbstractDay3Class
             $oxygen = array_filter($oxygen, fn ($value) => $value[$i] === $filter);
         }
 
-        $carbondioxide = $lines;
+        $carbonDioxide = $lines;
 
-        for ($i = 0; \count($carbondioxide) > 1; $i++) {
-            $oneCount = $this->countPositionCharacter($carbondioxide, $i, '1');
-            $filter = $oneCount >= \count($carbondioxide) / 2 ? '0' : '1';
-            $carbondioxide = array_filter($carbondioxide, fn ($value) => $value[$i] === $filter);
+        for ($i = 0; \count($carbonDioxide) > 1; $i++) {
+            $oneCount = $this->countPositionCharacter($carbonDioxide, $i, '1');
+            $filter = $oneCount >= \count($carbonDioxide) / 2 ? '0' : '1';
+            $carbonDioxide = array_filter($carbonDioxide, fn ($value) => $value[$i] === $filter);
         }
 
-        return bindec(reset($oxygen)) * bindec(reset($carbondioxide));
+        return (string)(bindec(Arrays::first($oxygen)) * bindec(Arrays::first($carbonDioxide)));
     }
 }

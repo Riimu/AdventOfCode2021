@@ -64,7 +64,7 @@ abstract class AbstractTask implements TaskInterface
         if (file_exists($fullPath)) {
             $realPath = realpath($fullPath);
         } elseif (file_exists($filename)) {
-            $realPath =realpath($filename);
+            $realPath = realpath($filename);
         }
 
         if ($realPath === false) {

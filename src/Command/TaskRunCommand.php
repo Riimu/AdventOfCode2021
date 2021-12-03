@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Riimu\AdventOfCode2021\Command;
 
 use Riimu\AdventOfCode2021\TaskList;
@@ -34,9 +36,9 @@ class TaskRunCommand extends Command
         $task = $taskList->getTask($taskName);
 
         $output->writeln('Running task: ' . $task::getName());
-        $inputFile = $input->getArgument('input');
+        $inputFile = $this->getInputFile($input);
 
-        if (\is_string($inputFile) && $inputFile !== '') {
+        if ($inputFile !== '') {
             $task->setInput($inputFile);
         }
 
@@ -66,5 +68,16 @@ class TaskRunCommand extends Command
         }
 
         return $name;
+    }
+
+    private function getInputFile(InputInterface $input): string
+    {
+        $inputFile = $input->getArgument('input');
+
+        if (!\is_string($inputFile)) {
+            return '';
+        }
+
+        return $inputFile;
     }
 }

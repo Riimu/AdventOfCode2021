@@ -27,6 +27,6 @@ class Day3PartOne extends AbstractDay3Class
             $epsilon .= $oneMostCommon ? '0' : '1';
         }
 
-        return bindec($gamma) * bindec($epsilon);
+        return (string)(bindec($gamma) * bindec($epsilon));
     }
 }

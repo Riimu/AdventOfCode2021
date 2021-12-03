@@ -9,6 +9,7 @@ return $config->setFinder($finder)
     ->setRiskyAllowed(true)
     ->setRules([
         '@PSR12' => true,
+        'binary_operator_spaces' => true,
         'native_function_invocation' => true,
         'no_unused_imports' => true,
    ]);
