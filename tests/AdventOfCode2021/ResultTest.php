@@ -30,6 +30,7 @@ class ResultTest extends TestCase
             [Day1\Day1PartTwo::class, '1486'],
             [Day2\Day2PartOne::class, '1250395'],
             [Day2\Day2PartTwo::class, '1451210346'],
+            [Day3\Day3PartOne::class, '2648450'],
         ];
     }
 }
