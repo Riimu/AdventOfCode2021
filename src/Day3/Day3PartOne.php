@@ -2,32 +2,29 @@
 
 namespace Riimu\AdventOfCode2021\Day3;
 
-use Riimu\AdventOfCode2021\AbstractTask;
-
-class Day3PartOne extends AbstractTask
+class Day3PartOne extends AbstractDay3Class
 {
     protected static string $taskName = 'Day 3: Binary Diagnostic';
 
     public function run(): string
     {
         $lines = $this->getInputLines('day-3.txt');
-        $ones = array_fill(0, \strlen(reset($lines)), 0);
 
-        foreach ($lines as $line) {
-            foreach (str_split($line) as $position => $character) {
-                if ($character === '1') {
-                    $ones[$position]++;
-                }
-            }
+        $first = reset($lines);
+
+        if (!\is_string($first)) {
+            throw new \RuntimeException('No input lines provided');
         }
 
+        $length = \strlen($first);
         $gamma = '';
         $epsilon = '';
         $majority = \count($lines) / 2;
 
-        foreach ($ones as $count) {
-            $gamma .= $count >= $majority ? '1' : '0';
-            $epsilon .= $count >= $majority ? '0' : '1';
+        for ($i = 0; $i < $length; $i++) {
+            $oneMostCommon = $this->countPositionCharacter($lines, $i, '1') > $majority;
+            $gamma .= $oneMostCommon ? '1' : '0';
+            $epsilon .= $oneMostCommon ? '0' : '1';
         }
 
         return bindec($gamma) * bindec($epsilon);
