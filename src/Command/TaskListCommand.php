@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Riimu\AdventOfCode2021\Command;
 
 use Riimu\AdventOfCode2021\TaskList;
@@ -14,7 +16,8 @@ class TaskListCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $tasks = TaskList::TASK_LIST;
+        $taskList = new TaskList();
+        $tasks = $taskList->getTasks();
 
         uksort($tasks, fn (string $a, string $b): int => strnatcasecmp($a, $b));
 

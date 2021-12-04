@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Riimu\AdventOfCode2021\Day1;
 
 use Riimu\AdventOfCode2021\AbstractTask;
