@@ -6,7 +6,7 @@ namespace Riimu\AdventOfCode2021\Day3;
 
 use Riimu\AdventOfCode2021\AbstractTask;
 
-abstract class AbstractDay3Class extends AbstractTask
+abstract class AbstractDay3Task extends AbstractTask
 {
     /**
      * @param iterable<string> $strings

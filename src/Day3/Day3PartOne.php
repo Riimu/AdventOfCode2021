@@ -6,7 +6,7 @@ namespace Riimu\AdventOfCode2021\Day3;
 
 use Riimu\AdventOfCode2021\Typed\Arrays;
 
-class Day3PartOne extends AbstractDay3Class
+class Day3PartOne extends AbstractDay3Task
 {
     protected static string $taskName = 'Day 3: Binary Diagnostic';
 
