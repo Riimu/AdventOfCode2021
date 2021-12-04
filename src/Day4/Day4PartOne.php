@@ -10,7 +10,7 @@ class Day4PartOne extends AbstractDay4Task
 {
     protected static string $taskName = 'Day 4: Giant Squid';
 
-    protected function calculateScore($numbers, $boards, $winners): string
+    protected function calculateScore(array $numbers, array $boards, array $winners): string
     {
         $count = 4;
 
