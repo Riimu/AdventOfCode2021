@@ -23,17 +23,6 @@ abstract class AbstractTask implements TaskInterface
         $this->inputFile = $filename;
     }
 
-    protected function parseInt(string $string): int
-    {
-        $value = (int)$string;
-
-        if ($string !== (string)$value) {
-            throw new \RuntimeException("Unexpected integer value '$string'");
-        }
-
-        return $value;
-    }
-
     /**
      * @return array<int, string>
      */

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Riimu\AdventOfCode2021\Day1;
 
 use Riimu\AdventOfCode2021\AbstractTask;
+use Riimu\AdventOfCode2021\Typed\Integers;
 
 class Day1PartOne extends AbstractTask
 {
@@ -16,7 +17,7 @@ class Day1PartOne extends AbstractTask
         $previous = null;
 
         foreach ($this->getInputLines('day-1.txt') as $line) {
-            $depth = $this->parseInt($line);
+            $depth = Integers::parse($line);
 
             if ($previous !== null && $depth > $previous) {
                 $total++;

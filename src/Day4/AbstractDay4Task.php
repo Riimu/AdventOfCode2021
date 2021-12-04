@@ -6,6 +6,7 @@ namespace Riimu\AdventOfCode2021\Day4;
 
 use Riimu\AdventOfCode2021\AbstractTask;
 use Riimu\AdventOfCode2021\Typed\Arrays;
+use Riimu\AdventOfCode2021\Typed\Integers;
 use Riimu\AdventOfCode2021\Typed\Regex;
 
 abstract class AbstractDay4Task extends AbstractTask
@@ -14,7 +15,7 @@ abstract class AbstractDay4Task extends AbstractTask
     {
         $inputs = Regex::split('/\R\R/', $this->getInput('day-4.txt'));
         $numbers = array_map(
-            fn (string $number) => $this->parseInt($number),
+            fn (string $number) => Integers::parse($number),
             Regex::split('/,/', Arrays::shift($inputs))
         );
         $boards = array_map(fn (string $board) => $this->parseBoardNumbers($board), array_values($inputs));
@@ -44,7 +45,7 @@ abstract class AbstractDay4Task extends AbstractTask
             array_push($numbers, ... Regex::split('/\s+/', trim($line)));
         }
 
-        return array_map(fn (string $number) => $this->parseInt($number), $numbers);
+        return array_map(fn (string $number) => Integers::parse($number), $numbers);
     }
 
     /**

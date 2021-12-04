@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Riimu\AdventOfCode2021\Day2;
 
 use Riimu\AdventOfCode2021\AbstractTask;
+use Riimu\AdventOfCode2021\Typed\Integers;
 
 class Day2PartTwo extends AbstractTask
 {
@@ -19,7 +20,7 @@ class Day2PartTwo extends AbstractTask
         foreach ($this->getInputLines('day-2.txt') as $line) {
             [$command, $value] = explode(' ', $line);
 
-            $value = $this->parseInt($value);
+            $value = Integers::parse($value);
 
             switch ($command) {
                 case 'forward':
