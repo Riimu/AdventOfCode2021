@@ -19,7 +19,7 @@ class Day4PartTwo extends AbstractDay4Task
             $picked = \array_slice($numbers, 0, $count);
             $winningBoards = array_filter($winners, fn (array $line) => array_diff($line, $picked) === []);
 
-            foreach ($winningBoards as $key => $line) {
+            foreach (array_keys($winningBoards) as $key) {
                 $start = intdiv($key, 10) * 10;
 
                 for ($i = 0; $i < 10; $i++) {
@@ -27,6 +27,10 @@ class Day4PartTwo extends AbstractDay4Task
                 }
             }
         } while ($winners !== []);
+
+        if ($winningBoards === []) {
+            throw new \RuntimeException('No bingo boards provided');
+        }
 
         $winner = $boards[intdiv(array_key_first($winningBoards), 10)];
         $unselectedSum = array_sum(array_diff($winner, $picked));

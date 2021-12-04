@@ -13,13 +13,11 @@ class Arrays
      */
     public static function first(array $array): mixed
     {
-        $key = array_key_first($array);
-
-        if (!\is_string($key) && !\is_int($key)) {
-            throw new \InvalidArgumentException('Cannot return first element of empty array');
+        if ($array === []) {
+            throw new \InvalidArgumentException('Cannot return the first element of an empty array');
         }
 
-        return $array[$key];
+        return $array[array_key_first($array)];
     }
 
     /**
@@ -29,12 +27,24 @@ class Arrays
      */
     public static function last(array $array): mixed
     {
-        $key = array_key_last($array);
-
-        if (!\is_string($key) && !\is_int($key)) {
-            throw new \InvalidArgumentException('Cannot return first element of empty array');
+        if ($array === []) {
+            throw new \InvalidArgumentException('Cannot return the last element of an empty array');
         }
 
-        return $array[$key];
+        return $array[array_key_last($array)];
+    }
+
+    /**
+     * @template T
+     * @param array<T> $array
+     * @return T
+     */
+    public static function shift(array &$array): mixed
+    {
+        if ($array === []) {
+            throw new \InvalidArgumentException('Cannot shift the first element of an empty array');
+        }
+
+        return array_shift($array);
     }
 }
