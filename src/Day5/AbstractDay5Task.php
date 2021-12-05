@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Riimu\AdventOfCode2021\Day5;
 
 use Riimu\AdventOfCode2021\AbstractTask;
@@ -14,20 +16,12 @@ abstract class AbstractDay5Task extends AbstractTask
 
         foreach ($this->getInputLines('day-5.txt') as $line) {
             foreach ($this->parseLineCoordinates($line, $this->isStraightOnly()) as [$x, $y]) {
-                $vents[$y][$x] ??= 0;
-                $vents[$y][$x]++;
+                $vents["$x,$y"] ??= 0;
+                $vents["$x,$y"]++;
             }
         }
 
-        $dangerous = 0;
-
-        array_walk_recursive($vents, function (int $count) use (&$dangerous) {
-            if ($count > 1) {
-                $dangerous++;
-            }
-        });
-
-        return (string)$dangerous;
+        return (string)array_reduce($vents, fn (int $carry, int $value): int => $carry + ($value > 1 ? 1 : 0), 0);
     }
 
     abstract protected function isStraightOnly(): bool;
@@ -50,8 +44,8 @@ abstract class AbstractDay5Task extends AbstractTask
 
         for ($i = 0; $i < $steps; $i++) {
             yield [
-                $startX + ($endX - $startX) / $steps * $i,
-                $startY + ($endY - $startY) / $steps * $i,
+                $startX + (int)(($endX - $startX) / $steps * $i),
+                $startY + (int)(($endY - $startY) / $steps * $i),
             ];
         }
 
