@@ -12,6 +12,7 @@ return $config->setFinder($finder)
     ->setRules([
         '@PSR12' => true,
         'binary_operator_spaces' => true,
+        'declare_strict_types' => true,
         'native_function_invocation' => true,
         'no_unused_imports' => true,
    ]);
