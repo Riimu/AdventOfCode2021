@@ -8,7 +8,7 @@ use Riimu\AdventOfCode2021\Typed\Arrays;
 
 class Day4PartTwo extends AbstractDay4Task
 {
-    protected static string $taskName = 'Day 4: Giant Squid';
+    protected static string $taskName = 'Day 4: Giant Squid (Part Two)';
 
     protected function calculateScore(array $numbers, array $boards, array $winners): string
     {
