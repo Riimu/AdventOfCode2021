@@ -47,4 +47,32 @@ class Arrays
 
         return array_shift($array);
     }
+
+    /**
+     * @template T
+     * @param array<T> $array
+     * @return T
+     */
+    public static function min(array $array): mixed
+    {
+        if ($array === []) {
+            throw new \InvalidArgumentException('Cannot return the minimum value of an empty array');
+        }
+
+        return min($array);
+    }
+
+    /**
+     * @template T
+     * @param array<T> $array
+     * @return T
+     */
+    public static function max(array $array): mixed
+    {
+        if ($array === []) {
+            throw new \InvalidArgumentException('Cannot return the maximum value of an empty array');
+        }
+
+        return max($array);
+    }
 }
