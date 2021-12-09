@@ -26,8 +26,8 @@ class Day9PartTwo extends AbstractTask
         $visited = [];
         $basins = [];
 
-        $maxY = count($map) - 1;
-        $maxX = count(Arrays::first($map)) - 1;
+        $maxY = \count($map) - 1;
+        $maxX = \count(Arrays::first($map)) - 1;
 
         foreach ($map as $mapY => $row) {
             foreach ($row as $mapX => $height) {
@@ -40,6 +40,7 @@ class Day9PartTwo extends AbstractTask
                 $visited[$mapY][$mapX] = true;
 
                 do {
+                    /** @var array<int, array<int, int>> $points */
                     [$x, $y] = Arrays::shift($points);
                     $size++;
 

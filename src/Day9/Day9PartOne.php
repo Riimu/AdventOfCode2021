@@ -24,12 +24,13 @@ class Day9PartOne extends AbstractTask
         }
 
         $totalRisk = 0;
-        $maxY = count($map) - 1;
-        $maxX = count(Arrays::first($map)) - 1;
+        $maxY = \count($map) - 1;
+        $maxX = \count(Arrays::first($map)) - 1;
 
         foreach ($map as $y => $row) {
             foreach ($row as $x => $height) {
-                if (($x === 0 || $height < $row[$x - 1]) &&
+                if (
+                    ($x === 0 || $height < $row[$x - 1]) &&
                     ($x === $maxX || $height < $row[$x + 1]) &&
                     ($y === 0 || $height < $map[$y - 1][$x]) &&
                     ($y === $maxY || $height < $map[$y + 1][$x])
