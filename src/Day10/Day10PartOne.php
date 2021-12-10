@@ -6,7 +6,6 @@ namespace Riimu\AdventOfCode2021\Day10;
 
 use Riimu\AdventOfCode2021\AbstractTask;
 use Riimu\AdventOfCode2021\Typed\Arrays;
-use Riimu\AdventOfCode2021\Typed\Integers;
 
 class Day10PartOne extends AbstractTask
 {
