@@ -8,7 +8,7 @@ use Riimu\AdventOfCode2021\AbstractTask;
 use Riimu\AdventOfCode2021\Typed\Arrays;
 use Riimu\AdventOfCode2021\Typed\Integers;
 
-class Day10PartOne extends AbstractTask
+class Day10PartTwo extends AbstractTask
 {
     private const CHUNKS = [
         ')' => '(',
@@ -18,17 +18,17 @@ class Day10PartOne extends AbstractTask
     ];
 
     private const SCORE = [
-        ')' => 3,
-        ']' => 57,
-        '}' => 1197,
-        '>' => 25137,
+        '(' => 1,
+        '[' => 2,
+        '{' => 3,
+        '<' => 4,
     ];
 
-    protected static string $taskName = 'Day 10: Syntax Scoring';
+    protected static string $taskName = 'Day 10: Syntax Scoring (Part Two)';
 
     public function run(): string
     {
-        $score = 0;
+        $scores = [];
 
         foreach ($this->getInputLines('day-10.txt') as $line) {
             $stack = [];
@@ -40,14 +40,23 @@ class Day10PartOne extends AbstractTask
                 }
 
                 if (Arrays::last($stack) !== self::CHUNKS[$character]) {
-                    $score += self::SCORE[$character];
                     continue 2;
                 }
 
                 array_pop($stack);
             }
+
+            $points = 0;
+
+            foreach (array_reverse($stack) as $character) {
+                $points = $points * 5 + self::SCORE[$character];
+            }
+
+            $scores[] = $points;
         }
 
-        return (string)$score;
+        sort($scores);
+
+        return (string)$scores[intdiv(\count($scores), 2)];
     }
 }
