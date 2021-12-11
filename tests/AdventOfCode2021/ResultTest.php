@@ -71,6 +71,8 @@ class ResultTest extends TestCase
             [Day10\Day10PartOne::class, '370407'],
             [Day10\Day10PartTwo::class, '288957', 'day-10.sample.txt'],
             [Day10\Day10PartTwo::class, '3249889609'],
+            [Day11\Day11PartOne::class, '1656', 'day-11.sample.txt'],
+            [Day11\Day11PartOne::class, '1681'],
         ];
     }
 }
