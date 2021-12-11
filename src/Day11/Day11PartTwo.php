@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace Riimu\AdventOfCode2021\Day11;
 
-use Riimu\AdventOfCode2021\AbstractTask;
 use Riimu\AdventOfCode2021\Typed\Arrays;
 use Riimu\AdventOfCode2021\Typed\Integers;
 
-class Day11PartTwo extends AbstractTask
+class Day11PartTwo extends AbstractDay11Task
 {
     protected static string $taskName = 'Day 11: Dumbo Octopus (Part Two)';
 
@@ -23,53 +22,12 @@ class Day11PartTwo extends AbstractTask
             );
         }
 
-        $maxX = \count(Arrays::first($map)) - 1;
-        $maxY = \count($map) - 1;
-        $total = ($maxX + 1) * ($maxY + 1);
+        $total = \count($map) * \count(Arrays::first($map));
         $step = 0;
 
         do {
             $step++;
-            $flashes = 0;
-            $flash = [];
-
-            for ($y = 0; $y <= $maxY; $y++) {
-                for ($x = 0; $x <= $maxX; $x++) {
-                    $map[$y][$x]++;
-
-                    if ($map[$y][$x] === 10) {
-                        $flash[] = [$x, $y];
-                    }
-                }
-            }
-
-            while ($flash !== []) {
-                [$flashX, $flashY] = array_pop($flash);
-                $flashes++;
-                $map[$flashY][$flashX] = 0;
-
-                for ($y = -1; $y <= 1; $y++) {
-                    $targetY = $flashY + $y;
-
-                    if ($targetY < 0 || $targetY > $maxY) {
-                        continue;
-                    }
-
-                    for ($x = -1; $x <= 1; $x++) {
-                        $targetX = $flashX + $x;
-
-                        if ($targetX < 0 || $targetX > $maxX || $map[$targetY][$targetX] === 0) {
-                            continue;
-                        }
-
-                        $map[$targetY][$targetX]++;
-
-                        if ($map[$targetY][$targetX] === 10) {
-                            $flash[] = [$targetX, $targetY];
-                        }
-                    }
-                }
-            }
+            $flashes = $this->step($map);
         } while ($flashes < $total);
 
         return (string)$step;
