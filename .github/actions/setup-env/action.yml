@@ -8,5 +8,17 @@ runs:
       with:
         php-version: '8.1'
         coverage: none
-    - name: Setup Dependencies
-      uses: ./.github/actions/setup-composer
+    - name: Get Composer Cache Directory
+      id: composer-cache
+      shell: bash
+      run: |
+        echo "::set-output name=dir::$(composer config cache-files-dir)"
+    - uses: actions/cache@v2
+      with:
+        path: ${{ steps.composer-cache.outputs.dir }}
+        key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-composer-
+    - name: Install dependencies
+      run: composer install --no-progress --prefer-dist --classmap-authoritative --no-interaction
+      shell: bash
