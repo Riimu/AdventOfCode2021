@@ -109,6 +109,8 @@ class ResultTest extends TestCase
                 #..#..##..#....####.#..#.#..#.#..#.####.
                 OUTPUT,
             ],
+            [Day14\Day14PartOne::class, '1588', 'day-14.sample.txt'],
+            [Day14\Day14PartOne::class, '2590'],
         ];
     }
 }
