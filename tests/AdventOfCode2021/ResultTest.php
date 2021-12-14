@@ -83,6 +83,32 @@ class ResultTest extends TestCase
             [Day12\Day12PartTwo::class, '103', 'day-12.sample.2.txt'],
             [Day12\Day12PartTwo::class, '3509', 'day-12.sample.3.txt'],
             [Day12\Day12PartTwo::class, '122134'],
+            [Day13\Day13PartOne::class, '17', 'day-13.sample.txt'],
+            [Day13\Day13PartOne::class, '743'],
+            [
+                Day13\Day13PartTwo::class,
+                <<<OUTPUT
+                #####
+                #...#
+                #...#
+                #...#
+                #####
+                .....
+                .....
+                OUTPUT,
+                'day-13.sample.txt',
+            ],
+            [
+                Day13\Day13PartTwo::class,
+                <<<OUTPUT
+                ###...##..###..#.....##..#..#.#..#.#....
+                #..#.#..#.#..#.#....#..#.#.#..#..#.#....
+                #..#.#....#..#.#....#..#.##...####.#....
+                ###..#....###..#....####.#.#..#..#.#....
+                #.#..#..#.#....#....#..#.#.#..#..#.#....
+                #..#..##..#....####.#..#.#..#.#..#.####.
+                OUTPUT,
+            ],
         ];
     }
 }
