@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Riimu\AdventOfCode2021\Day14;
 
 use Riimu\AdventOfCode2021\AbstractTask;
-use Riimu\AdventOfCode2021\Typed\Integers;
 use Riimu\AdventOfCode2021\Typed\Regex;
 
 class Day14PartTwo extends AbstractTask
