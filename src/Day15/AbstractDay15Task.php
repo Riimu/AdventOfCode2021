@@ -57,7 +57,7 @@ abstract class AbstractDay15Task extends AbstractTask
             ];
 
             foreach ($neighbors as [$x, $y]) {
-                if (!isset($map[$y][$x])) {
+                if (!isset($map[$y][$x]) || isset($visited[$y][$x])) {
                     continue;
                 }
 
