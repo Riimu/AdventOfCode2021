@@ -6,17 +6,26 @@ namespace Riimu\AdventOfCode2021\Day15;
 
 use Riimu\AdventOfCode2021\AbstractTask;
 use Riimu\AdventOfCode2021\Typed\Arrays;
-use Riimu\AdventOfCode2021\Typed\Integers;
-use Riimu\AdventOfCode2021\Typed\Regex;
 
 abstract class AbstractDay15Task extends AbstractTask
 {
+    /**
+     * @param array<int, array<int, int>> $map
+     * @return int
+     * @psalm-suppress UnnecessaryVarAnnotation
+     */
     protected function solveMap(array $map): int
     {
         $lastX = \count(Arrays::last($map)) - 1;
         $lastY = \count($map) - 1;
 
-        $nodes = new class extends \SplPriorityQueue {
+        /** @var \SplPriorityQueue<int, array<int, int>> $nodes */
+        $nodes = new class () extends \SplPriorityQueue {
+            /**
+             * @param int $priority1
+             * @param int $priority2
+             * @return int
+             */
             public function compare(mixed $priority1, mixed $priority2): int
             {
                 return $priority2 <=> $priority1;
@@ -27,7 +36,9 @@ abstract class AbstractDay15Task extends AbstractTask
         $nodes->insert([0, 0, 0], $lastX + $lastY);
 
         while (!$nodes->isEmpty()) {
-            [$x, $y, $cost] = $nodes->extract();
+            /** @var array<int, int> $node */
+            $node = $nodes->extract();
+            [$x, $y, $cost] = $node;
 
             if (isset($visited[$y][$x])) {
                 continue;

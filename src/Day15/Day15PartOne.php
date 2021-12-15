@@ -16,7 +16,7 @@ class Day15PartOne extends AbstractDay15Task
 
         foreach ($this->getInputLines('day-15.txt') as $line) {
             $row = array_map(
-                fn(string $value): int => Integers::parse($value),
+                fn (string $value): int => Integers::parse($value),
                 str_split($line)
             );
 
