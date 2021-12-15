@@ -11,44 +11,33 @@ use Riimu\AdventOfCode2021\Typed\Regex;
 
 abstract class AbstractDay15Task extends AbstractTask
 {
-
     protected function solveMap(array $map): int
     {
         $lastX = \count(Arrays::last($map)) - 1;
         $lastY = \count($map) - 1;
 
-        $h = fn($point) => abs($lastX - $point[0]) + abs($lastY - $point[1]);
-        $d = fn($neighbor, $map) => $map[$neighbor[1]][$neighbor[0]];
-        $lowest = function ($openSet, $fScore) {
-            [$lowX, $lowY] = Arrays::first($openSet);
-
-            foreach ($openSet as [$x, $y]) {
-                if ($fScore[$y][$x] < $fScore[$lowY][$lowX]) {
-                    $lowX = $x;
-                    $lowY = $y;
-                }
+        $nodes = new class extends \SplPriorityQueue {
+            public function compare(mixed $priority1, mixed $priority2): int
+            {
+                return $priority2 <=> $priority1;
             }
-
-            return [$lowX, $lowY];
         };
 
-        $openSet = [[0, 0]];
+        $visited = [];
+        $nodes->insert([0, 0, 0], $lastX + $lastY);
 
-        $gScore = [];
-        $gScore[0][0] = 0;
+        while (!$nodes->isEmpty()) {
+            [$x, $y, $cost] = $nodes->extract();
 
-        $fScore = [];
-        $fScore[0][0] = $h([0, 0]);
-
-        while ($openSet !== []) {
-            [$x, $y] = $lowest($openSet, $fScore);
-
-            if ($x === $lastX && $y === $lastY) {
-                return $gScore[$y][$x];
+            if (isset($visited[$y][$x])) {
+                continue;
             }
 
-            unset($openSet[array_search([$x, $y], $openSet, true)]);
+            if ($x === $lastX && $y === $lastY) {
+                return $cost;
+            }
 
+            $visited[$y][$x] = true;
             $neighbors = [
                 [$x - 1, $y],
                 [$x + 1, $y],
@@ -56,21 +45,15 @@ abstract class AbstractDay15Task extends AbstractTask
                 [$x, $y + 1],
             ];
 
-            foreach ($neighbors as [$neighborX, $neighborY]) {
-                if (!isset($map[$neighborY][$neighborX])) {
+            foreach ($neighbors as [$x, $y]) {
+                if (!isset($map[$y][$x])) {
                     continue;
                 }
 
-                $tentativeScore = $gScore[$y][$x] + $d([$neighborX, $neighborY], $map);
+                $newCost = $cost + $map[$y][$x];
+                $heuristic = $newCost + abs($lastX - $x) + abs($lastY - $y);
 
-                if (!isset($gScore[$neighborY][$neighborX]) || $tentativeScore < $gScore[$neighborY][$neighborX]) {
-                    $gScore[$neighborY][$neighborX] = $tentativeScore;
-                    $fScore[$neighborY][$neighborX] = $tentativeScore + $h([$neighborX, $neighborY]);
-
-                    if (!\in_array([$neighborX, $neighborY], $openSet, true)) {
-                        $openSet[] = [$neighborX, $neighborY];
-                    }
-                }
+                $nodes->insert([$x, $y, $newCost], $heuristic);
             }
         }
 
