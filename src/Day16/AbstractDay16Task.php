@@ -6,16 +6,16 @@ namespace Riimu\AdventOfCode2021\Day16;
 
 use Riimu\AdventOfCode2021\AbstractTask;
 use Riimu\AdventOfCode2021\Typed\Arrays;
+use Riimu\AdventOfCode2021\Typed\File;
 use Riimu\AdventOfCode2021\Typed\Integers;
-use Riimu\AdventOfCode2021\Typed\Regex;
 
 abstract class AbstractDay16Task extends AbstractTask
 {
     public function run(): string
     {
-        $stream = fopen('php://memory', 'rwb');
+        $stream = new File('php://memory', 'rwb');
 
-        fwrite($stream, strtr($this->getInput('day-16.txt'), [
+        $stream->write(strtr($this->getInput('day-16.txt'), [
             '0' => '0000',
             '1' => '0001',
             '2' => '0010',
@@ -35,7 +35,7 @@ abstract class AbstractDay16Task extends AbstractTask
         ]));
 
 
-        fseek($stream, 0);
+        $stream->seek(0);
 
         return (string)$this->calculateResult(Arrays::first($this->parsePackets($stream, 1)));
     }
@@ -43,17 +43,17 @@ abstract class AbstractDay16Task extends AbstractTask
     abstract protected function calculateResult(Packet $packet): int;
 
     /**
-     * @param resource $stream
+     * @param File $stream
      * @param int $count
      * @return array<int, Packet>
      */
-    private function parsePackets($stream, int $count): array
+    private function parsePackets(File $stream, int $count): array
     {
         $packets = [];
 
         for ($total = 0; $total < $count; $total++) {
-            $version = bindec(fread($stream, 3));
-            $type = bindec(fread($stream, 3));
+            $version = Integers::fromBinary($stream->read(3));
+            $type = Integers::fromBinary($stream->read(3));
 
             if ($type === 4) {
                 $packets[] = new Packet($version, $type, $this->parseLiteral($stream), []);
@@ -66,38 +66,42 @@ abstract class AbstractDay16Task extends AbstractTask
         return $packets;
     }
 
-    private function parseLiteral($stream): int
+    private function parseLiteral(File $stream): int
     {
         $binary = '';
 
         do {
-            $continue = fread($stream, 1);
-            $binary .= fread($stream, 4);
+            $continue = $stream->read(1);
+            $binary .= $stream->read(4);
         } while ($continue === '1');
 
-        return bindec($binary);
+        return (int)bindec($binary);
     }
 
-    private function parseOperator($stream): array
+    /**
+     * @param File $stream
+     * @return array<int, Packet>
+     */
+    private function parseOperator(File $stream): array
     {
-        $type = bindec(fread($stream, 1));
+        $type = Integers::fromBinary($stream->read(1));
 
         if ($type === 0) {
-            $subStream = fopen('php://memory', 'rwb');
-            $binary = fread($stream, 15);
-            $length = bindec($binary);
-            fwrite($subStream, fread($stream, $length));
-            fseek($subStream, 0);
+            $length = Integers::fromBinary($stream->read(15));
+
+            $subStream = new File('php://memory', 'rwb');
+            $subStream->write($stream->read($length));
+            $subStream->seek(0);
 
             $packets = [];
 
-            while (ftell($subStream) < $length - 10) {
+            while ($subStream->tell() < $length - 10) {
                 $packets[] = Arrays::first($this->parsePackets($subStream, 1));
             }
 
             return $packets;
         }
 
-        return $this->parsePackets($stream, bindec(fread($stream, 11)));
+        return $this->parsePackets($stream, Integers::fromBinary($stream->read(11)));
     }
 }
