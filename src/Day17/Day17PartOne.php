@@ -16,10 +16,10 @@ class Day17PartOne extends AbstractTask
         $input = $this->getInput('day-17.txt');
         preg_match_all('/-?\d+/', $input, $matches);
 
-        [$lowerX, $upperX, $lowerY, $upperY] = array_map(
+        $lowerY = array_map(
             fn (string $value): int => Integers::parse($value),
             $matches[0]
-        );
+        )[2];
 
         $speed = abs($lowerY + 1);
         $height = 0;
