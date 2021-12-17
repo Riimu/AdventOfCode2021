@@ -117,6 +117,19 @@ class ResultTest extends TestCase
             [Day15\Day15PartOne::class, '714'],
             [Day15\Day15PartTwo::class, '315', 'day-15.sample.txt'],
             [Day15\Day15PartTwo::class, '2948'],
+            [Day16\Day16PartOne::class, '16', 'day-16.sample.1.txt'],
+            [Day16\Day16PartOne::class, '12', 'day-16.sample.2.txt'],
+            [Day16\Day16PartOne::class, '23', 'day-16.sample.3.txt'],
+            [Day16\Day16PartOne::class, '31', 'day-16.sample.4.txt'],
+            [Day16\Day16PartTwo::class, '3', 'day-16.sample.5.txt'],
+            [Day16\Day16PartTwo::class, '54', 'day-16.sample.6.txt'],
+            [Day16\Day16PartTwo::class, '7', 'day-16.sample.7.txt'],
+            [Day16\Day16PartTwo::class, '9', 'day-16.sample.8.txt'],
+            [Day16\Day16PartTwo::class, '1', 'day-16.sample.9.txt'],
+            [Day16\Day16PartTwo::class, '0', 'day-16.sample.10.txt'],
+            [Day16\Day16PartTwo::class, '0', 'day-16.sample.11.txt'],
+            [Day16\Day16PartTwo::class, '1', 'day-16.sample.12.txt'],
+            [Day16\Day16PartTwo::class, '1673210814091'],
         ];
     }
 }

@@ -16,4 +16,15 @@ class Integers
 
         return $value;
     }
+
+    public static function fromBinary(string $binary): int
+    {
+        $number = bindec($binary);
+
+        if (!\is_int($number)) {
+            throw new \RuntimeException("Unexpected binary number '$binary'");
+        }
+
+        return $number;
+    }
 }
