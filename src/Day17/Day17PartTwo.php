@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Riimu\AdventOfCode2021\Day17;
 
 use Riimu\AdventOfCode2021\AbstractTask;
+use Riimu\AdventOfCode2021\Typed\Arrays;
 use Riimu\AdventOfCode2021\Typed\Integers;
 
 class Day17PartTwo extends AbstractTask
@@ -40,7 +41,7 @@ class Day17PartTwo extends AbstractTask
             } while ($height > $lowerY);
         }
 
-        $maxSteps = max(array_keys($vertical));
+        $maxSteps = Arrays::max(array_keys($vertical));
 
         for ($i = 1; $i <= $upperX; $i++) {
             $speed = $i;
