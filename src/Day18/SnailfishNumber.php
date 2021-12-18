@@ -1,15 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Riimu\AdventOfCode2021\Day18;
 
 class SnailfishNumber implements SnailfishInterface
 {
-    private SnailfishNumber $parent;
+    private ?SnailfishNumber $parent;
 
     public function __construct(
         private SnailfishInterface $left,
         private SnailfishInterface $right,
     ) {
+        $this->parent = null;
         $this->left->setParent($this);
         $this->right->setParent($this);
     }
@@ -51,9 +54,17 @@ class SnailfishNumber implements SnailfishInterface
                 return false;
             }
 
-            $this->parent->passLeft($this, $this->left);
-            $this->parent->passRight($this, $this->right);
-            $this->parent->replace($this, new SnailfishValue(0));
+            $left = $this->left;
+            $right = $this->right;
+            $parent = $this->parent;
+
+            if ($parent === null) {
+                throw new \RuntimeException('Undefined behaviour trying to explode number without parent');
+            }
+
+            $parent->passLeft($this, $left);
+            $parent->passRight($this, $right);
+            $parent->replace($this, new SnailfishValue(0));
 
             return true;
         }
@@ -94,7 +105,7 @@ class SnailfishNumber implements SnailfishInterface
             $this->left->addRight($number);
         } elseif ($from !== $this->left) {
             throw new \RuntimeException('Unexpected source of number');
-        } elseif (isset($this->parent)) {
+        } elseif ($this->parent !== null) {
             $this->parent->passLeft($this, $number);
         }
     }
@@ -110,7 +121,7 @@ class SnailfishNumber implements SnailfishInterface
             $this->right->addLeft($number);
         } elseif ($from !== $this->right) {
             throw new \RuntimeException('Unexpected source of number');
-        } elseif (isset($this->parent)) {
+        } elseif ($this->parent !== null) {
             $this->parent->passRight($this, $number);
         }
     }

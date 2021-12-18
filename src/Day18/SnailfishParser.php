@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Riimu\AdventOfCode2021\Day18;
 
 use Riimu\AdventOfCode2021\Typed\Integers;
 
 class SnailfishParser
 {
-    private string $string;
-    private int $position;
+    private string $string = '';
+    private int $position = 0;
 
     public function parse(string $string): SnailfishNumber
     {
@@ -25,7 +27,7 @@ class SnailfishParser
 
     public function parseItem(): SnailfishInterface
     {
-        if ($this->consume('/\G\s*\[/', true) !== null) {
+        if ($this->consume('/\G\s*\[/', true) !== '') {
             $left = $this->parseItem();
             $this->consume('/\G\s*,/');
             $right = $this->parseItem();
@@ -37,7 +39,7 @@ class SnailfishParser
         return new SnailfishValue(Integers::parse($this->consume('/\G\s*\d+/')));
     }
 
-    private function consume(string $pattern, bool $optional = false): ?string
+    private function consume(string $pattern, bool $optional = false): string
     {
         $count = preg_match($pattern, $this->string, $match, 0, $this->position);
 
@@ -50,6 +52,6 @@ class SnailfishParser
             throw new \RuntimeException("Ill formed snailfish number '$this->string'");
         }
 
-        return null;
+        return '';
     }
 }

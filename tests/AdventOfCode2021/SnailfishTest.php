@@ -1,19 +1,25 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Riimu\AdventOfCode2021;
 
 use PHPUnit\Framework\TestCase;
 use Riimu\AdventOfCode2021\Day18\SnailfishParser;
 use Riimu\AdventOfCode2021\Typed\Arrays;
 
+/** @psalm-suppress PropertyNotSetInConstructor */
 class SnailfishTest extends TestCase
 {
     /** @dataProvider getParserTestCases */
-    public function testParser(string $number)
+    public function testParser(string $number): void
     {
         $this->assertSame($number, (new SnailfishParser())->parse($number)->toString());
     }
 
+    /**
+     * @return array<int, array<int, string>>
+     */
     public function getParserTestCases(): array
     {
         return [
@@ -28,7 +34,7 @@ class SnailfishTest extends TestCase
     }
 
     /** @dataProvider getExplodeTestCases */
-    public function testExplode(string $expected, string $number)
+    public function testExplode(string $expected, string $number): void
     {
         $parser = new SnailfishParser();
 
@@ -38,7 +44,10 @@ class SnailfishTest extends TestCase
         $this->assertSame($expected, $parsed->toString());
     }
 
-    public function getExplodeTestCases()
+    /**
+     * @return array<int, array<int, string>>
+     */
+    public function getExplodeTestCases(): array
     {
         return [
             ['[[[[0,9],2],3],4]', '[[[[[9,8],1],2],3],4]'],
@@ -49,8 +58,13 @@ class SnailfishTest extends TestCase
         ];
     }
 
-    /** @dataProvider getAdditionTestCases */
-    public function testAddition(string $expected, array $numbers)
+    /**
+     * @param string $expected
+     * @param array<int, string> $numbers
+     * @return void
+     * @dataProvider getAdditionTestCases
+     */
+    public function testAddition(string $expected, array $numbers): void
     {
         $parser = new SnailfishParser();
         $result = $parser->parse(Arrays::shift($numbers));
@@ -62,7 +76,10 @@ class SnailfishTest extends TestCase
         $this->assertSame($expected, $result->toString());
     }
 
-    public function getAdditionTestCases()
+    /**
+     * @return array<int, array<int, mixed>>
+     */
+    public function getAdditionTestCases(): array
     {
         return [
             ['[[[[0,7],4],[[7,8],[6,0]]],[8,1]]', [
@@ -111,6 +128,9 @@ class SnailfishTest extends TestCase
         $this->assertSame($expected, (new SnailfishParser())->parse($number)->getMagnitude());
     }
 
+    /**
+     * @return array<int, array<int, mixed>>
+     */
     public function getMagnitudeTestCases(): array
     {
         return [
