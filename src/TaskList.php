@@ -45,6 +45,7 @@ class TaskList
         '18-1' => Day18\Day18PartOne::class,
         '18-2' => Day18\Day18PartTwo::class,
         '19-1' => Day19\Day19PartOne::class,
+        '19-2' => Day19\Day19PartTwo::class,
     ];
 
     /**
