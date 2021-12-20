@@ -9,9 +9,9 @@ use Riimu\AdventOfCode2021\Typed\Arrays;
 use Riimu\AdventOfCode2021\Typed\Integers;
 use Riimu\AdventOfCode2021\Typed\Regex;
 
-class Day20PartOne extends AbstractTask
+class Day20PartTwo extends AbstractTask
 {
-    protected static string $taskName = 'Day 20: Trench Map';
+    protected static string $taskName = 'Day 20: Trench Map (Part Two)';
 
     public function run(): string
     {
@@ -45,7 +45,7 @@ class Day20PartOne extends AbstractTask
 
         $emptySpace = false;
 
-        for ($n = 0; $n < 2; $n++) {
+        for ($n = 0; $n < 50; $n++) {
             $height = \count($image);
             $width = \count(Arrays::first($image));
             $newImage = [];
