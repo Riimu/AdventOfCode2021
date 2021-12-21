@@ -49,16 +49,8 @@ abstract class AbstractDay20Task extends AbstractTask
             $width = \count(Arrays::first($image));
             $newImage = [];
 
-            while (\count(array_keys(array_column($image, $width - 1), $emptySpace, true)) === $height) {
-                $width--;
-            }
-
-            while (\count(array_keys($image[$height - 1], $emptySpace, true)) === \count($image[$height - 1])) {
-                $height--;
-            }
-
-            foreach (range(0, $height + 2) as $y) {
-                foreach (range(0, $width + 2) as $x) {
+            foreach (range(0, $height + 1) as $y) {
+                foreach (range(0, $width + 1) as $x) {
                     $value = 0;
 
                     for ($i = -2; $i <= 0; $i++) {
