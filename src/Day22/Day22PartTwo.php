@@ -20,11 +20,6 @@ class Day22PartTwo extends AbstractTask
             $turnOn = str_starts_with($line, 'on');
             $cube = Integers::parseAll($line);
 
-            [$x1, $x2, $y1, $y2, $z1, $z2] = Integers::parseAll($line);
-            if ($x1 > 50 || $x2 < -50 || $y1 > 50 || $y2 < -50 || $z1 > 50 || $z2 < -50) {
-                continue;
-            }
-
             $cube[1]++;
             $cube[3]++;
             $cube[5]++;
@@ -97,12 +92,12 @@ class Day22PartTwo extends AbstractTask
     private function breakCube(array $cube, array $exclude): array
     {
         if (
-            $cube[0] > $exclude[1] ||
-            $cube[1] < $exclude[0] ||
-            $cube[2] > $exclude[3] ||
-            $cube[3] < $exclude[2] ||
-            $cube[4] > $exclude[5] ||
-            $cube[5] < $exclude[4]
+            $cube[0] >= $exclude[1] ||
+            $cube[1] <= $exclude[0] ||
+            $cube[2] >= $exclude[3] ||
+            $cube[3] <= $exclude[2] ||
+            $cube[4] >= $exclude[5] ||
+            $cube[5] <= $exclude[4]
         ) {
             return [$cube];
         }
@@ -145,10 +140,6 @@ class Day22PartTwo extends AbstractTask
 
     private function calculateSize(array $cube): int
     {
-        if ($cube[1] < $cube[0] || $cube[3] < $cube[2] || $cube[5] < $cube[4]) {
-            throw new \RuntimeException('Unexpected cube: ' . implode(',', $cube));
-        }
-
-        return abs($cube[1] - $cube[0]) * abs($cube[3] - $cube[2]) * abs($cube[5] - $cube[4]);
+        return ($cube[1] - $cube[0]) * ($cube[3] - $cube[2]) * ($cube[5] - $cube[4]);
     }
 }

@@ -30,7 +30,7 @@ class ResultTest extends TestCase
      */
     public function getTaskResults(): array
     {
-        return [/*
+        return [
             [Day1\Day1PartOne::class, '7', 'day-1.sample.txt'],
             [Day1\Day1PartOne::class, '1446'],
             [Day1\Day1PartTwo::class, '5', 'day-1.sample.txt'],
@@ -154,8 +154,8 @@ class ResultTest extends TestCase
             [Day22\Day22PartOne::class, '39', 'day-22.sample.1.txt'],
             [Day22\Day22PartOne::class, '590784', 'day-22.sample.2.txt'],
             [Day22\Day22PartOne::class, '570915'],
-            [Day22\Day22PartTwo::class, '39', 'day-22.sample.1.txt'],*/
-            [Day22\Day22PartTwo::class, '590784', 'day-22.sample.2.txt'],
+            [Day22\Day22PartTwo::class, '2758514936282235', 'day-22.sample.3.txt'],
+            [Day22\Day22PartTwo::class, '1268313839428137'],
         ];
     }
 }
