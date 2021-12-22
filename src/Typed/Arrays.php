@@ -76,10 +76,16 @@ class Arrays
         return max($array);
     }
 
+    /**
+     * @param array<mixed> $array
+     * @param mixed $match
+     * @return int
+     */
     public static function countRecursive(array $array, mixed $match): int
     {
         $count = 0;
 
+        /** @var mixed $value */
         foreach ($array as $value) {
             $count += \is_array($value)
                 ? self::countRecursive($value, $match)

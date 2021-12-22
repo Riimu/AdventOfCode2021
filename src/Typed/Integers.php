@@ -19,7 +19,7 @@ class Integers
 
     /**
      * @param string $string
-     * @return list<int>
+     * @return array<int, int>
      */
     public static function parseAll(string $string): array
     {

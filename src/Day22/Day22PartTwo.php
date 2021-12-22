@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Riimu\AdventOfCode2021\Day22;
 
 use Riimu\AdventOfCode2021\AbstractTask;
-use Riimu\AdventOfCode2021\Typed\Arrays;
 use Riimu\AdventOfCode2021\Typed\Integers;
 
 class Day22PartTwo extends AbstractTask
@@ -43,6 +42,11 @@ class Day22PartTwo extends AbstractTask
         ));
     }
 
+    /**
+     * @param array<int, int> $cube
+     * @param array<int, array<int, int>> $cubes
+     * @return array<int, array<int, int>>
+     */
     private function addCube(array $cube, array $cubes): array
     {
         foreach ($cubes as $key => $existingCube) {
@@ -68,6 +72,11 @@ class Day22PartTwo extends AbstractTask
         return [...$cubes, ...$newCubes];
     }
 
+    /**
+     * @param array<int, int> $cube
+     * @param array<int, array<int, int>> $cubes
+     * @return array<int, array<int, int>>
+     */
     private function removeCube(array $cube, array $cubes): array
     {
         $newCubes = [];
@@ -79,6 +88,11 @@ class Day22PartTwo extends AbstractTask
         return $newCubes;
     }
 
+    /**
+     * @param array<int, int> $cube
+     * @param array<int, int> $other
+     * @return bool
+     */
     private function cubeContains(array $cube, array $other): bool
     {
         return $other[0] >= $cube[0]
@@ -89,6 +103,11 @@ class Day22PartTwo extends AbstractTask
             && $other[5] <= $cube[5];
     }
 
+    /**
+     * @param array<int, int> $cube
+     * @param array<int, int> $exclude
+     * @return array<int, array<int, int>>
+     */
     private function breakCube(array $cube, array $exclude): array
     {
         if (
@@ -138,6 +157,10 @@ class Day22PartTwo extends AbstractTask
         return $newCubes;
     }
 
+    /**
+     * @param array<int, int> $cube
+     * @return int
+     */
     private function calculateSize(array $cube): int
     {
         return ($cube[1] - $cube[0]) * ($cube[3] - $cube[2]) * ($cube[5] - $cube[4]);
