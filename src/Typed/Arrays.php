@@ -75,4 +75,17 @@ class Arrays
 
         return max($array);
     }
+
+    public static function countRecursive(array $array, mixed $match): int
+    {
+        $count = 0;
+
+        foreach ($array as $value) {
+            $count += \is_array($value)
+                ? self::countRecursive($value, $match)
+                : ($value === $match ? 1 : 0);
+        }
+
+        return $count;
+    }
 }

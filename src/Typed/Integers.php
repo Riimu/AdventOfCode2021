@@ -17,6 +17,18 @@ class Integers
         return $value;
     }
 
+    /**
+     * @param string $string
+     * @return list<int>
+     */
+    public static function parseAll(string $string): array
+    {
+        return array_map(
+            fn (string $value): int => self::parse($value),
+            Regex::findAll('/-?\d+/', $string)
+        );
+    }
+
     public static function fromBinary(string $binary): int
     {
         $number = bindec($binary);
