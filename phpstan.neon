@@ -4,6 +4,13 @@ parameters:
         - bin/console
         - src/
         - tests/
+    ignoreErrors:
+        -
+            message: '/Comparison operation "<" between int<-32, 40> and 1000 is always true/'
+            path: src\Day21\Day21PartOne.php
+        -
+            message: '/Unreachable statement - code above always terminate/'
+            path: src\Day21\Day21PartOne.php
 
 includes:
     - vendor/phpstan/phpstan-phpunit/extension.neon
