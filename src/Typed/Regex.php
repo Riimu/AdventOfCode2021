@@ -22,6 +22,17 @@ class Regex
         return $parts;
     }
 
+    public static function replace(string $pattern, string $replace, string $subject): string
+    {
+        $replaced = preg_replace($pattern, $replace, $subject);
+
+        if (!\is_string($replaced)) {
+            throw new \RuntimeException('Error in regular expression: ' . preg_last_error_msg());
+        }
+
+        return $replaced;
+    }
+
     /**
      * @param string $pattern
      * @param string $subject

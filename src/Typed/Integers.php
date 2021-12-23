@@ -39,4 +39,14 @@ class Integers
 
         return $number;
     }
+
+    /**
+     * @param int $from
+     * @param int $to
+     * @return array<int, int>
+     */
+    public static function range(int $from, int $to): array
+    {
+        return range($from, $to);
+    }
 }
