@@ -21,4 +21,20 @@ class Regex
 
         return $parts;
     }
+
+    /**
+     * @param string $pattern
+     * @param string $subject
+     * @return list<string>
+     */
+    public static function findAll(string $pattern, string $subject): array
+    {
+        $count = preg_match_all($pattern, $subject, $matches);
+
+        if ($count === false || $count !== \count($matches[0])) {
+            throw new \RuntimeException('Error in regular expression: ' . preg_last_error_msg());
+        }
+
+        return $matches[0];
+    }
 }
