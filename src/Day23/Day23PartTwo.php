@@ -8,37 +8,28 @@ use Riimu\AdventOfCode2021\AbstractTask;
 use Riimu\AdventOfCode2021\Typed\Arrays;
 use Riimu\AdventOfCode2021\Typed\Integers;
 
-class Day23PartOne extends AbstractTask
+class Day23PartTwo extends AbstractTask
 {
-    private const FINAL_STATE = '...........AABBCCDD';
+    private const FINAL_STATE = '...........AAAABBBBCCCCDDDD';
 
-    private const HOME_SIZE = 2;
+    private const HOME_SIZE = 4;
 
     private const HOMES = [
-        'A' => [11, 12],
-        'B' => [13, 14],
-        'C' => [15, 16],
-        'D' => [17, 18],
+        'A' => [11, 12, 13, 14],
+        'B' => [15, 16, 17, 18],
+        'C' => [19, 20, 21, 22],
+        'D' => [23, 24, 25, 26],
     ];
 
     private const HALLWAYS = [0, 1, 3, 5, 7, 9, 10];
 
-    private const ENTRANCES = [
-        11 => 2,
-        12 => 2,
-        13 => 4,
-        14 => 4,
-        15 => 6,
-        16 => 6,
-        17 => 8,
-        18 => 8,
-    ];
+    private const ENTRANCES = [11 => 2, 2, 2, 2, 4, 4, 4, 4, 6, 6, 6, 6, 8, 8, 8, 8];
 
     private const STEP_COUNT = [
-        'A' => [3, 2, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 0, 4, 5, 6, 7, 8, 9],
-        'B' => [5, 4, 3, 2, 1, 2, 3, 4, 5, 6, 7, 4, 5, 0, 0, 4, 5, 6, 7],
-        'C' => [7, 6, 5, 4, 3, 2, 1, 2, 3, 4, 5, 6, 7, 4, 5, 0, 0, 4, 5],
-        'D' => [9, 8, 7, 6, 5, 4, 3, 2, 1, 2, 3, 8, 9, 6, 7, 4, 5, 0, 0],
+        'A' => [3, 2, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 0, 0, 0, 4, 5, 6, 7, 6, 7, 8, 9, 8, 9, 10, 11],
+        'B' => [5, 4, 3, 2, 1, 2, 3, 4, 5, 6, 7, 4, 5, 6, 7, 0, 0, 0, 0, 4, 5, 6, 7, 6, 7, 8, 9],
+        'C' => [7, 6, 5, 4, 3, 2, 1, 2, 3, 4, 5, 6, 7, 8, 9, 4, 5, 6, 7, 0, 0, 0, 0, 4, 5, 6, 7],
+        'D' => [9, 8, 7, 6, 5, 4, 3, 2, 1, 2, 3, 8, 9, 10, 11, 6, 7, 8, 9, 4, 5, 6, 7, 0, 0, 0, 0],
     ];
 
     private const STEP_COST = [
@@ -48,13 +39,17 @@ class Day23PartOne extends AbstractTask
         'D' => 1000,
     ];
 
-    protected static string $taskName = 'Day 23: Amphipod';
+    protected static string $taskName = 'Day 23: Amphipod (Part Two)';
 
     public function run(): string
     {
         $input = preg_replace('/\s+/', '', $this->getInput('day-23.txt'));
         $state = substr($input, 14, 11);
-        $state .= $input[29] . $input[40] . $input[31] . $input[42] . $input[33] . $input[44] . $input[35] . $input[46];
+        $state .=
+            $input[29] . 'DD' . $input[40] .
+            $input[31] . 'CB' . $input[42] .
+            $input[33] . 'BA' . $input[44] .
+            $input[35] . 'AC' . $input[46];
 
         return (string)$this->solveState($state);
     }
@@ -165,7 +160,7 @@ class Day23PartOne extends AbstractTask
         $count = \count(self::HOMES[$type]);
 
         for ($i = $key + 1; $i < $count; $i++) {
-            if ($state[$i] !== $type) {
+            if ($state[self::HOMES[$type][$i]] !== $type) {
                 return false;
             }
         }
