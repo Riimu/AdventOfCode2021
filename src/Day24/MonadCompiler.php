@@ -4,11 +4,15 @@ declare(strict_types=1);
 
 namespace Riimu\AdventOfCode2021\Day24;
 
-use Riimu\AdventOfCode2021\AbstractTask;
 use Riimu\AdventOfCode2021\Typed\Integers;
+use Symfony\Component\Filesystem\Filesystem;
 
 class MonadCompiler
 {
+    /**
+     * @param array<int, string> $input
+     * @return AluRunner
+     */
     public function compile(array $input): AluRunner
     {
         $format = '$%s = %s;';
@@ -69,7 +73,8 @@ class MonadCompiler
                 }
             }
 
-            if (\in_array($command, ['mul', 'div', 'mod'], true) &&
+            if (
+                \in_array($command, ['mul', 'div', 'mod'], true) &&
                 $variable instanceof ConstantValue &&
                 $variable->value === 0
             ) {
@@ -107,7 +112,8 @@ class MonadCompiler
 
         $expressions[] = sprintf($format, 'z', $variables['z']->getExpression());
 
-        $temp = tempnam(sys_get_temp_dir(), 'php');
+        $fileSystem = new Filesystem();
+        $temp = $fileSystem->tempnam(sys_get_temp_dir(), 'php');
         $name = sprintf('AluRunner%s', md5($temp));
         $code = sprintf('        %s', implode("\n        ", $expressions));
 
@@ -124,10 +130,18 @@ class MonadCompiler
             }\n
             PHPCODE;
 
-        file_put_contents($temp, $contents);
+        $fileSystem->dumpFile($temp, $contents);
+
+        if (!is_file($temp)) {
+            throw new \RuntimeException("The compiled file '$temp' does not exist");
+        }
 
         require $temp;
         unlink($temp);
+
+        if (!is_a($name, AluRunner::class, true)) {
+            throw new \RuntimeException('Unexpected runner class created');
+        }
 
         return new $name();
     }
