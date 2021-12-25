@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Riimu\AdventOfCode2021\Day25;
 
 use Riimu\AdventOfCode2021\AbstractTask;
-use Riimu\AdventOfCode2021\Typed\Arrays;
-use Riimu\AdventOfCode2021\Typed\Integers;
 
 class Day25PartOne extends AbstractTask
 {
@@ -33,6 +31,11 @@ class Day25PartOne extends AbstractTask
         return (string)$step;
     }
 
+    /**
+     * @param array<int, array<int, string>> $map
+     * @param int $moved
+     * @return array<int, array<int, string>>
+     */
     private function moveEast(array $map, int &$moved): array
     {
         $newMap = $map;
@@ -52,7 +55,13 @@ class Day25PartOne extends AbstractTask
         return $newMap;
     }
 
-    private function moveSouth(array $map, int &$moved): array {
+    /**
+     * @param array<int, array<int, string>> $map
+     * @param int $moved
+     * @return array<int, array<int, string>>
+     */
+    private function moveSouth(array $map, int &$moved): array
+    {
         $newMap = $map;
         $height = \count($map);
 
