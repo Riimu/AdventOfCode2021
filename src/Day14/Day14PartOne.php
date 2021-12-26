@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Riimu\AdventOfCode2021\Day14;
 
 use Riimu\AdventOfCode2021\AbstractTask;
+use Riimu\AdventOfCode2021\Typed\Arrays;
 use Riimu\AdventOfCode2021\Typed\Regex;
 
 class Day14PartOne extends AbstractTask
@@ -54,10 +55,6 @@ class Day14PartOne extends AbstractTask
 
         $counts = array_count_values(str_split($polymer));
 
-        /**
-         * @psalm-suppress TooFewArguments
-         * @psalm-suppress InvalidOperand
-         */
-        return (string)(max($counts) - min($counts));
+        return (string)(Arrays::max($counts) - Arrays::min($counts));
     }
 }
